@@ -16,6 +16,7 @@ import { AuthService } from 'app';
 // VIEWS
 import { HomeComponent } from './views/home/home.component';
 import { LoginComponent } from './views/login/login.component';
+import { ComponentsComponent } from './views/components/components.component';
 
 // C0MPONENTS
 import { HeaderComponent } from './components/header/header.component';
@@ -30,6 +31,7 @@ import { LoadingService } from './services/loading.service';
     AppComponent,
     HomeComponent,
     LoginComponent,
+    ComponentsComponent,
 
     HeaderComponent,
     FooterComponent,
