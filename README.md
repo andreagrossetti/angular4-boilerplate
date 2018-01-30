@@ -45,6 +45,11 @@ Plus with AOT a lot of errors are discovered during the build process instead of
 ### Coding
 Use a typescript aware editor like [visual studio code](https://code.visualstudio.com/)(best) or install a typescript plugin and linter extensions to [atom](https://atom.io/), webstorm or sublime.
 
+Do not style elements directly (h1, buttons), use custom classes/ids.
+Do not style bootstrap classes in components (.btn), use custom classes/ids.
+Use *rem* to set font-size, do not use px unless strictly necessary.
+Style buttons in bootstrap.sass. If you add a new color to $theme-colors, you can then use btn-NEWCOLORNAME and btn-NEWCOLORNAME-outline.
+
 **Follow linters rules!**
 
 ### Add new libraries
