@@ -19,7 +19,7 @@ module.exports = function(env) {
           test: /\.js$/,
           use: 'source-map-loader',
           exclude: [
-            /\/node_modules\//
+            path.join(process.cwd(), 'node_modules')
           ]
         },
         // Support for CSS as raw text
@@ -39,8 +39,8 @@ module.exports = function(env) {
           loader: ExtractTextPlugin.extract({ fallback: 'style-loader', use: ['css-loader', 'postcss-loader', 'sass-loader']})
         },
         {
-          test: /\.ts$/,
-          use: ['@ngtools/webpack', 'angular2-template-loader']
+          test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
+          use: ['@ngtools/webpack']
         }
       ]
     },
@@ -48,12 +48,14 @@ module.exports = function(env) {
       new ExtractTextPlugin({
         filename: 'assets/css/[name].bundle.css',
       }),
-      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.UglifyJsPlugin({
+        sourceMap: true
+      }),
       new AngularCompilerPlugin({
         mainPath: './src/main.ts',
-        exclude: [],
         tsConfigPath: 'tsconfig.json',
-        skipCodeGeneration: false
+        sourceMap: true,
+        skipCodeGeneration: true
       })
     ]
   })
