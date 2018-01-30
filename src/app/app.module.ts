@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }   from '@angular/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { LaddaModule } from 'angular2-ladda';
 import { MomentModule } from 'angular2-moment';
 import { ToastrModule } from 'ngx-toastr';
@@ -40,10 +42,12 @@ import { LoadingService } from './services/loading.service';
     FormsModule,
     routing,
     ModalModule.forRoot(),
+    CollapseModule.forRoot(),
+    BsDropdownModule.forRoot(),
     LaddaModule,
     MomentModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-center' // visup custom class
+      positionClass: 'toast-center' // custom class
     })
   ],
   providers: [
