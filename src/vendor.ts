@@ -4,10 +4,9 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 // import 'jquery';
 // import 'mdi/css/materialdesignicons.css';
-import 'ngx-toastr/toastr.css';
 import 'ladda/dist/ladda.min.css';
 import * as WebFont from 'webfontloader';
-
+import 'bootstrap/js/dist/collapse';
 WebFont.load({
   google: {
     families: [
