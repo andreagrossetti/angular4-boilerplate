@@ -4,7 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const { ProvidePlugin, ProgressPlugin, DefinePlugin, ContextReplacementPlugin } = require('webpack');
-const { CommonsChunkPlugin } = require('webpack').optimize;
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
 const entryPoints = ['inline','polyfills','sw-register','vendor','main'];
@@ -126,13 +125,6 @@ function buildConfig(env) {
               return 0;
           }
       }
-      }),
-      new CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: (module) => module.resource && module.resource.startsWith(nodeModules),
-        chunks: [
-          'main'
-        ]
       }),
       new DefinePlugin({
         // Environment helpers

@@ -4,6 +4,7 @@ const path = require('path');
 
 module.exports = function(env) {
   return merge(baseConfig.call(this, env), {
+    mode: 'development',
     devtool: 'eval-source-map',
     output: {
       filename: 'assets/js/[name].js',

@@ -7,6 +7,7 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 module.exports = function(env) {
   return merge(baseConfig.call(this, env), {
+    mode: 'production',
     devtool: 'nosources-source-map',
     output: {
       filename: 'assets/js/[name].[hash].js',
@@ -14,14 +15,6 @@ module.exports = function(env) {
     },
     module: {
       rules: [
-        {
-          enforce: 'pre',
-          test: /\.js$/,
-          use: 'source-map-loader',
-          exclude: [
-            path.join(process.cwd(), 'node_modules')
-          ]
-        },
         // Support for CSS as raw text
         // use 'null' loader in test mode (https://github.com/webpack/null-loader)
         // all css in src/style will be bundled in an external css file
@@ -48,14 +41,10 @@ module.exports = function(env) {
       new ExtractTextPlugin({
         filename: 'assets/css/[name].bundle.css',
       }),
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true
-      }),
       new AngularCompilerPlugin({
         mainPath: './src/main.ts',
         tsConfigPath: 'tsconfig.json',
-        sourceMap: true,
-        skipCodeGeneration: true
+        sourceMap: true
       })
     ]
   })
