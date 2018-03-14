@@ -57,3 +57,7 @@ Use a typescript aware editor like [visual studio code](https://code.visualstudi
 `npm` and `yarn` are allowed but prefer yarn because it generates a lockfile, caches packages installed, it's faster and more secure
 Use `yarn add` to add a new dependency
 Use `yarn add --dev` when installing a library for development
+
+## Notes
+To use images/fonts in css/sass files:  
+`background: url(/images/imgurl.png)`

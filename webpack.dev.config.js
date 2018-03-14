@@ -11,24 +11,20 @@ module.exports = function(env) {
     },
     module: {
       rules: [
-        // Support for CSS as raw text
-        // use 'null' loader in test mode (https://github.com/webpack/null-loader)
         // all css in src/style will be bundled in an external css file
         {
           test: /\.css$/,
-          exclude: root('src', 'app'),
+          include: root('src', 'style'),
           use: [
             { loader: 'style-loader' },
             { loader: 'css-loader' },
             { loader: 'postcss-loader' }
           ]
         },
-        // support for .scss files
-        // use 'null' loader in test mode (https://github.com/webpack/null-loader)
         // all css in src/style will be bundled in an external css file
         {
           test: /\.(scss|sass)$/,
-          exclude: root('src', 'app'),
+          include: root('src', 'style'),
           use: [
             { loader: 'style-loader' },
             { loader: 'css-loader' },

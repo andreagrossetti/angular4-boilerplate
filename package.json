@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "rimraf dist && webpack --config webpack.prod.config.js --env.production --progress --profile",
-    "preview": "cd dist && ws --spa --static.index index.html",
+    "preview": "cd dist && ws --spa index.html",
     "server": "webpack-dev-server --env.development --env.PORT=3000 --config webpack.dev.config.js",
     "start": "npm run server",
     "start:hmr": "npm run server -- --hot --env.HMR"
@@ -30,16 +30,15 @@
     "local-web-server": "^2.4.0",
     "node-sass": "^4.7.2",
     "postcss-loader": "^2.0.10",
-    "raw-loader": "~0.5.1",
     "resolve-url-loader": "^2.2.1",
     "rimraf": "~2.6.2",
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.3",
     "style-loader": "^0.20.0",
+    "to-string-loader": "^1.1.5",
     "tslint": "^5.9.1",
     "tslint-loader": "^3.5.3",
     "typescript": "^2.6.2",
-    "url-loader": "~0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.1.11",
     "webpack-merge": "^4.1.1"
