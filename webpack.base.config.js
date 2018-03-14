@@ -36,10 +36,6 @@ function buildConfig(env) {
     module: {
       rules: [
         {
-          test: /\.json$/,
-          use: 'json-loader'
-        },
-        {
           test: /\.html$/,
           use: [{
             loader: 'html-loader',
@@ -50,30 +46,31 @@ function buildConfig(env) {
           exclude: [root('src', 'public'), root('templates')]
         },
         {
-          test: /\.(eot|svg)$/,
-          use: 'file-loader?name=assets/images/[name].[hash:20].[ext]'
+          test: /\.(eot|otf|ttf|woff|woff2)$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash:20].[ext]',
+              outputPath: 'assets/fonts/'
+            }
+          }]
         },
         {
-          test: /\.(jpg|png|gif|otf|ttf|woff|woff2|cur|ani)(\?.*$|$)$/,
-          use: 'url-loader?name=assets/images/[name].[hash:20].[ext]&limit=10000',
-          exclude: root('templates')
+          test: /\.(jpg|gif|png|svg)$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash:20].[ext]',
+              outputPath: 'assets/images/'
+            }
+          }]
         },
-        // all css required in src/app files will be merged in js files
-        {
-          test: /\.css$/,
-          include: root('src', 'app'),
-          use: [
-            { loader: 'raw-loader' },
-            { loader: 'postcss-loader' }
-          ]
-        },
-        // all css required in src/app files will be merged in js files
         {
           test: /\.(scss|sass)$/,
-          exclude: root('src', 'style'),
+          include: [root('src', 'app'), root('node_modules/reboard-angular')],
           use: [
-            { loader: 'raw-loader' },
-            { loader: 'postcss-loader' },
+            { loader: 'to-string-loader' },
+            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
             { loader: 'sass-loader' }
           ]
         }
