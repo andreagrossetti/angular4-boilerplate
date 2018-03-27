@@ -41,6 +41,7 @@ function buildConfig(env) {
           use: [{
             loader: 'html-loader',
             options: {
+              attrs: ['video:src', 'img:src', 'source:src'],
               root: path.resolve(__dirname, 'src/public')
             }
           }],
@@ -62,6 +63,16 @@ function buildConfig(env) {
             options: {
               name: '[name].[hash:20].[ext]',
               outputPath: 'assets/images/'
+            }
+          }]
+        },
+        {
+          test: /\.(mp4|webm)$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[hash:20].[ext]',
+              outputPath: 'assets/video/'
             }
           }]
         },
