@@ -51,7 +51,7 @@ module.exports = function(env) {
       new AngularCompilerPlugin({
         mainPath: './src/main.ts',
         tsConfigPath: 'tsconfig.json',
-        sourceMap: true
+        sourceMap: env.sourcemap
       })
     ]
   })

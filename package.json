@@ -4,8 +4,10 @@
   "author": "Andrea Grossetti <andrea_grossetti@yahoo.it>",
   "license": "MIT",
   "scripts": {
-    "build": "rimraf dist && webpack --config webpack.prod.config.js --env.production --progress --profile",
-    "preview": "cd dist && ws --spa --static.index index.html",
+    "clean": "rimraf dist",
+    "build": "npm run clean && webpack --config webpack.prod.config.js --env.production --progress --profile",
+    "build:sourcemap": "npm run clean && webpack --config webpack.prod.config.js --env.sourcemap --env.production --progress --profile",
+    "preview": "cd dist && ws --spa index.html",
     "server": "webpack-dev-server --env.development --env.PORT=3000 --config webpack.dev.config.js",
     "start": "npm run server",
     "start:hmr": "npm run server -- --hot --env.HMR"
@@ -38,8 +40,8 @@
     "tslint": "^5.9.1",
     "tslint-loader": "^3.6.0",
     "typescript": "^2.7.2",
-    "webpack": "^4.1.1",
-    "webpack-cli": "^2.0.12",
+    "webpack": "^4.3.0",
+    "webpack-cli": "^2.0.13",
     "webpack-dev-server": "^3.1.1",
     "webpack-merge": "^4.1.2"
   },
@@ -58,7 +60,6 @@
     "bootstrap": "^4.0.0",
     "core-js": "~2.5.3",
     "jquery": "^3.3.1",
-    "mdi": "^2.1.19",
     "ngx-bootstrap": "^2.0.2",
     "ngx-toastr": "^8.2.1",
     "popper.js": "^1.12.9",
