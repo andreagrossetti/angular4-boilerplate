@@ -71,6 +71,7 @@ function buildConfig(env) {
           use: [
             { loader: 'to-string-loader' },
             { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
+            { loader: 'postcss-loader' },
             { loader: 'sass-loader' }
           ]
         }
