@@ -8,7 +8,7 @@ const { AngularCompilerPlugin } = require('@ngtools/webpack');
 module.exports = function(env) {
   return merge(baseConfig.call(this, env), {
     mode: 'production',
-    devtool: 'nosources-source-map',
+    devtool: env.sourcemap ? 'nosources-source-map' : false,
     output: {
       filename: 'assets/js/[name].[hash].js',
       chunkFilename: '[id].[hash].chunk.js'
