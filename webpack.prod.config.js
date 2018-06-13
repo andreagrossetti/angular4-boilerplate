@@ -2,10 +2,12 @@ const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base.config.js');
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
-module.exports = function(env) {
+module.exports = function (env) {
   return merge(baseConfig.call(this, env), {
     mode: 'production',
     devtool: env.sourcemap ? 'nosources-source-map' : false,
@@ -15,28 +17,34 @@ module.exports = function(env) {
     },
     module: {
       rules: [
+        {
+          enforce: 'pre',
+          test: /\.js$/,
+          use: 'source-map-loader',
+          exclude: [
+            path.join(process.cwd(), 'node_modules')
+          ]
+        },
         // all css in src/style will be bundled in an external css file
         {
           test: /\.css$/,
           include: root('src', 'style'),
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader', use: [
-              { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
-              { loader: 'postcss-loader' }
-            ]
-          })
+          use: [
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
+            { loader: 'postcss-loader' }
+          ]
         },
         // all css in src/style will be bundled in an external css file
         {
           test: /\.(scss|sass)$/,
           include: root('src', 'style'),
-          loader: ExtractTextPlugin.extract({
-            fallback: 'style-loader', use: [
-              { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
-              { loader: 'postcss-loader' },
-              { loader: 'sass-loader' }
-            ]
-          })
+          use: [
+            MiniCssExtractPlugin.loader,
+            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
+            { loader: 'postcss-loader' },
+            { loader: 'sass-loader' }
+          ]
         },
         {
           test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
@@ -44,9 +52,32 @@ module.exports = function(env) {
         }
       ]
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.css$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      },
+      minimizer: [
+        new UglifyJsPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: env.sourcemap // set to true if you want JS source maps
+        }),
+        new OptimizeCSSAssetsPlugin({})
+      ]
+    },
     plugins: [
-      new ExtractTextPlugin({
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
         filename: 'assets/css/[name].bundle.css',
+        chunkFilename: "[id].css"
       }),
       new AngularCompilerPlugin({
         mainPath: './src/main.ts',
