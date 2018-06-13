@@ -1,4 +1,4 @@
-# Angular 5 boilerplate
+# Angular 6 boilerplate
 This boilerplate includes:  
 
 * [Webpack](https://webpack.github.io/) as module bundler with [HMR](https://webpack.js.org/concepts/hot-module-replacement/)
@@ -18,7 +18,7 @@ Typescript is used instead of plain javascript for a bunch of reasons including:
 
 ## Development setup
 
- - install `node` 7+
+ - install `node` 8+
  - install `yarn` package manager https://yarnpkg.com/lang/en/
  - install all dependencies with `yarn install`
  - install **ALL** these plugins in your editor:
