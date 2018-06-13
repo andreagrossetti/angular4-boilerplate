@@ -1,20 +1,33 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const { ProvidePlugin, ProgressPlugin, DefinePlugin, ContextReplacementPlugin } = require('webpack');
-const { CommonsChunkPlugin } = require('webpack').optimize;
 
 const nodeModules = path.join(process.cwd(), 'node_modules');
-const entryPoints = ['inline','polyfills','sw-register','vendor','main'];
+const entryPoints = ['inline', 'polyfills', 'sw-register', 'vendor', 'main'];
 
 
 function buildConfig(env) {
+  let endpoint = "'/api'";
+  switch (env.ENDPOINT) {
+    case 'local':
+      endpoint = "'http://localhost:4000/api'";
+      break;
+    case 'prod':
+      endpoint = "'https://someendpoint/api'";
+    default:
+      break;
+  }
   const config = {
     resolve: {
       extensions: ['.ts', '.js'],
-      modules: [path.join(process.cwd(), 'src'), './node_modules']
+      modules: [path.join(process.cwd(), 'src'), './node_modules'],
+      alias: {
+        '@fortawesome/fontawesome-pro-light$': '@fortawesome/fontawesome-pro-light/shakable.es.js',
+        '@fortawesome/fontawesome-pro-regular$': '@fortawesome/fontawesome-pro-regular/shakable.es.js',
+        '@fortawesome/fontawesome-pro-solid$': '@fortawesome/fontawesome-pro-solid/shakable.es.js'
+      }
     },
     resolveLoader: {
       modules: ['./node_modules']
@@ -78,15 +91,22 @@ function buildConfig(env) {
         },
         {
           test: /\.(scss|sass)$/,
-          include: root('src', 'app'),
+          include: [root('src', 'app'), root('node_modules/reboard-angular'), root('node_modules/tadaboard-widgets')],
           use: [
             { loader: 'to-string-loader' },
-            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
+            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public')  } },
             { loader: 'postcss-loader' },
             { loader: 'sass-loader' }
           ]
         }
       ]
+    },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          commons: { test: /[\\/]node_modules[\\/]/, name: "vendors", chunks: "all" }
+        }
+      }
     },
     plugins: [
       new ProvidePlugin({
@@ -94,16 +114,16 @@ function buildConfig(env) {
         jQuery: 'jquery',
         'window.jQuery': 'jquery',
         Tether: 'tether',
-        Alert: 'exports-loader?Alert!bootstrap/js/dist/alert',
-        Button: 'exports-loader?Button!bootstrap/js/dist/button',
-        Carousel: 'exports-loader?Carousel!bootstrap/js/dist/carousel',
+        // Alert: 'exports-loader?Alert!bootstrap/js/dist/alert',
+        // Button: 'exports-loader?Button!bootstrap/js/dist/button',
+        // Carousel: 'exports-loader?Carousel!bootstrap/js/dist/carousel',
         Collapse: 'exports-loader?Collapse!bootstrap/js/dist/collapse',
-        Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
-        Modal: 'exports-loader?Modal!bootstrap/js/dist/modal',
-        Popover: 'exports-loader?Popover!bootstrap/js/dist/popover',
-        Scrollspy: 'exports-loader?Scrollspy!bootstrap/js/dist/scrollspy',
-        Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
-        Tooltip: 'exports-loader?Tooltip!bootstrap/js/dist/tooltip',
+        // Dropdown: 'exports-loader?Dropdown!bootstrap/js/dist/dropdown',
+        // Modal: 'exports-loader?Modal!bootstrap/js/dist/modal',
+        // Popover: 'exports-loader?Popover!bootstrap/js/dist/popover',
+        // Scrollspy: 'exports-loader?Scrollspy!bootstrap/js/dist/scrollspy',
+        // Tab: 'exports-loader?Tab!bootstrap/js/dist/tab',
+        // Tooltip: 'exports-loader?Tooltip!bootstrap/js/dist/tooltip',
         Util: 'exports-loader?Util!bootstrap/js/dist/util'
       }),
       new ProgressPlugin(),
@@ -119,37 +139,29 @@ function buildConfig(env) {
         showErrors: true,
         chunks: 'all',
         excludeChunks: [],
-        title: 'Webpack App',
         xhtml: true,
         chunksSortMode: function sort(left, right) {
           let leftIndex = entryPoints.indexOf(left.names[0]);
           let rightindex = entryPoints.indexOf(right.names[0]);
           if (leftIndex > rightindex) {
-              return 1;
+            return 1;
           }
           else if (leftIndex < rightindex) {
-              return -1;
+            return -1;
           }
           else {
-              return 0;
+            return 0;
           }
-      }
-      }),
-      new CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: (module) => module.resource && module.resource.startsWith(nodeModules),
-        chunks: [
-          'main'
-        ]
+        }
       }),
       new DefinePlugin({
         // Environment helpers
-        PRODUCTION: env.production
+        PRODUCTION: env.production,
+        ENDPOINT: endpoint
       }),
-      new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)esm5/,
+      new ContextReplacementPlugin(/\@angular(\\|\/)core(\\|\/)fesm5/,
         root('src')
-      ),
-
+      )
     ],
     node: {
       fs: 'empty',

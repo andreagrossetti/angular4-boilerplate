@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Http } from '@angular/http';
 import { ApiBaseUrl } from 'app';
-import 'rxjs/add/operator/map'
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -15,10 +15,10 @@ export class AuthService {
   // }
 
   login(data) {
-    return this.http.post(`${ApiBaseUrl}/login`, data).map(user => {
+    return this.http.post(`${ApiBaseUrl}/login`, data).pipe(map(user => {
       // this.setUser(user.json());
       // return user.json()
-    });
+    }));
   }
 
   // logout() {
