@@ -2,13 +2,14 @@
 This boilerplate includes:  
 
 * [Webpack](https://webpack.github.io/) as module bundler with [HMR](https://webpack.js.org/concepts/hot-module-replacement/)
-* Angular 5 with AOT
+* Angular 6 with AOT
 * [Bootstrap 4](https://v4-alpha.getbootstrap.com/getting-started/introduction/) as responsive framework
 * [ngx-bootstrap](https://valor-software.com/ngx-bootstrap) for bootstrap components
 * [angular2-ladda](https://github.com/moff/angular2-ladda) for loading indicators 
 * [angular2-moment](https://github.com/urish/angular2-moment) for dates parsing and manipulation
 * [ngx-toastr](https://github.com/scttcper/ngx-toastr) for bootstrap-like toasts
 * loading spinner service
+* [FontAwesome 5 icons](https://fontawesome.com) 
 Typescript is used instead of plain javascript for a bunch of reasons including:
 
 * Angular2+ is meant to be used with typescript. AOT won't even work without it.
@@ -18,7 +19,7 @@ Typescript is used instead of plain javascript for a bunch of reasons including:
 
 ## Development setup
 
- - install `node` 8+
+ - install `node` 9+
  - install `yarn` package manager https://yarnpkg.com/lang/en/
  - install all dependencies with `yarn install`
  - install **ALL** these plugins in your editor:

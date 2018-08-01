@@ -17,14 +17,6 @@ module.exports = function (env) {
     },
     module: {
       rules: [
-        {
-          enforce: 'pre',
-          test: /\.js$/,
-          use: 'source-map-loader',
-          exclude: [
-            path.join(process.cwd(), 'node_modules')
-          ]
-        },
         // all css in src/style will be bundled in an external css file
         {
           test: /\.css$/,
@@ -55,6 +47,7 @@ module.exports = function (env) {
     optimization: {
       splitChunks: {
         cacheGroups: {
+          commons: { test: /[\\/]node_modules[\\/]/, name: "vendors", chunks: "all" },
           styles: {
             name: 'styles',
             test: /\.css$/,
@@ -76,7 +69,7 @@ module.exports = function (env) {
       new MiniCssExtractPlugin({
         // Options similar to the same options in webpackOptions.output
         // both options are optional
-        filename: 'assets/css/[name].bundle.css',
+        filename: 'assets/css/[name].[hash].bundle.css',
         chunkFilename: "[id].css"
       }),
       new AngularCompilerPlugin({
