@@ -8,3 +8,9 @@ WebFont.load({
     ]
   }
 });
+
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+  faChevronLeft as fasChevronLeft
+} from '@fortawesome/free-solid-svg-icons';
+library.add(fasChevronLeft);

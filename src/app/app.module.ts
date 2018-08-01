@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
 import { AuthService, AuthInterceptor } from 'app';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 // VIEWS
 import { HomeComponent } from './views/home/home.component';
@@ -50,7 +51,8 @@ import { LoadingService } from './services/loading.service';
     MomentModule,
     ToastrModule.forRoot({
       positionClass: 'toast-center' // custom class
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [
     AuthService,
