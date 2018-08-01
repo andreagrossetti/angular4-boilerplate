@@ -1,12 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ApiBaseUrl } from 'app';
 import { map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  constructor(private http: Http, private router: Router) {}
+  private isLoggedInSubject = new BehaviorSubject(null);
+  private userSubject = new BehaviorSubject(null);
+  public jwtToken: string;
+  constructor(private http: HttpClient, private router: Router) {}
+
+  getOptions() {
+    let headers = new HttpHeaders();
+    if (this.jwtToken) {
+      headers = headers.append('Authorization', `Bearer: ${this.jwtToken}`);
+    }
+    return { headers };
+  }
+
   // private user: User;
 
   // private setUser(user) {
@@ -21,9 +34,9 @@ export class AuthService {
     }));
   }
 
-  // logout() {
-  //   localStorage.removeItem('user');
-  // }
+  logout() {
+    localStorage.removeItem('user');
+  }
 
   // getUser() {
   //   if (!this.user) {

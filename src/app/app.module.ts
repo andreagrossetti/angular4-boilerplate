@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms';
-import { HttpModule }   from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -11,7 +11,7 @@ import { MomentModule } from 'angular2-moment';
 import { ToastrModule } from 'ngx-toastr';
 import { AppComponent } from './app.component';
 import { routing } from './app.routing';
-import { AuthService } from 'app';
+import { AuthService, AuthInterceptor } from 'app';
 
 // VIEWS
 import { HomeComponent } from './views/home/home.component';
@@ -40,7 +40,7 @@ import { LoadingService } from './services/loading.service';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpModule,
+    HttpClientModule,
     FormsModule,
     routing,
     ModalModule.forRoot(),
@@ -55,6 +55,7 @@ import { LoadingService } from './services/loading.service';
   providers: [
     AuthService,
     LoadingService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
