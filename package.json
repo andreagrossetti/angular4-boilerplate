@@ -20,9 +20,9 @@
     "@types/node": "^9.6.21",
     "@types/webfontloader": "^1.6.28",
     "angular2-template-loader": "^0.6.2",
-    "autoprefixer": "~8.6.2",
+    "autoprefixer": "~9.0.2",
     "awesome-typescript-loader": "^5.0.0",
-    "css-loader": "^0.28.11",
+    "css-loader": "^1.0.0",
     "exports-loader": "~0.7.0",
     "favicons-webpack-plugin": "^0.0.9",
     "file-loader": "^1.1.11",
@@ -31,7 +31,7 @@
     "local-web-server": "^2.5.1",
     "mini-css-extract-plugin": "^0.4.0",
     "node-sass": "^4.9.0",
-    "optimize-css-assets-webpack-plugin": "^4.0.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.0",
     "postcss-loader": "^2.1.5",
     "rimraf": "~2.6.2",
     "sass-loader": "^7.0.1",
@@ -66,7 +66,6 @@
     "ngx-toastr": "^8.5.0",
     "popper.js": "^1.14.3",
     "rxjs": "^6.1.0",
-    "rxjs-compat": "^6.1.0",
     "webfontloader": "^1.6.27",
     "zone.js": "~0.8.26"
   }
