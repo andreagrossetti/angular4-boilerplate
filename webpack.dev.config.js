@@ -44,6 +44,7 @@ module.exports = function(env) {
       ]
     },
     devServer: {
+      host: '0.0.0.0',
       hot: env.HMR,
       inline: true,
       port: env.PORT,

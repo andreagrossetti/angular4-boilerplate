@@ -22,12 +22,7 @@ function buildConfig(env) {
   const config = {
     resolve: {
       extensions: ['.ts', '.js'],
-      modules: [path.join(process.cwd(), 'src'), './node_modules'],
-      alias: {
-        '@fortawesome/fontawesome-pro-light$': '@fortawesome/fontawesome-pro-light/shakable.es.js',
-        '@fortawesome/fontawesome-pro-regular$': '@fortawesome/fontawesome-pro-regular/shakable.es.js',
-        '@fortawesome/fontawesome-pro-solid$': '@fortawesome/fontawesome-pro-solid/shakable.es.js'
-      }
+      modules: [path.join(process.cwd(), 'src'), './node_modules']
     },
     resolveLoader: {
       modules: ['./node_modules']
@@ -101,13 +96,6 @@ function buildConfig(env) {
           ]
         }
       ]
-    },
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          commons: { test: /[\\/]node_modules[\\/]/, name: "vendors", chunks: "all" }
-        }
-      }
     },
     plugins: [
       new ProvidePlugin({
