@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const path = require('path');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const TerserPlugin = require('terser-webpack-plugin');
 const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
 module.exports = function (env) {
@@ -57,10 +57,9 @@ module.exports = function (env) {
         }
       },
       minimizer: [
-        new UglifyJsPlugin({
+        new TerserPlugin({
           cache: true,
-          parallel: true,
-          sourceMap: env.sourcemap // set to true if you want JS source maps
+          parallel: true
         }),
         new OptimizeCSSAssetsPlugin({})
       ]
