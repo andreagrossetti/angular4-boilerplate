@@ -89,10 +89,16 @@ function buildConfig(env) {
           include: [root('src', 'app'), root('node_modules/reboard-angular'), root('node_modules/tadaboard-widgets')],
           use: [
             { loader: 'to-string-loader' },
-            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public')  } },
+            { loader: 'css-loader' },
             { loader: 'postcss-loader' },
             { loader: 'sass-loader' }
           ]
+        },
+        {
+          // Mark files inside `@angular/core` as using SystemJS style dynamic imports.
+          // Removing this will cause deprecation warnings to appear.
+          test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
+          parser: { system: true },  // enable SystemJS
         }
       ]
     },

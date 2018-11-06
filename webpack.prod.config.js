@@ -23,7 +23,7 @@ module.exports = function (env) {
           include: root('src', 'style'),
           use: [
             MiniCssExtractPlugin.loader,
-            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
+            { loader: 'css-loader' },
             { loader: 'postcss-loader' }
           ]
         },
@@ -33,7 +33,7 @@ module.exports = function (env) {
           include: root('src', 'style'),
           use: [
             MiniCssExtractPlugin.loader,
-            { loader: 'css-loader', options: { root: path.resolve(__dirname, 'src/public') } },
+            { loader: 'css-loader' },
             { loader: 'postcss-loader' },
             { loader: 'sass-loader' }
           ]
